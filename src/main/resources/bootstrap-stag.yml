@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: uw-tinyurl2
+  cloud:
+    config:
+      profile: stag
+      username: prod-user
+      password: 8gcViHYu7dcIbiHo
+
+    consul:
+      host: 10.8.8.33
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${spring.cloud.consul.discovery.ip-address}:${spring.cloud.consul.discovery.port}

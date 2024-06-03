@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue=""/>
+    <springProperty scope="context" name="appVersion" source="project.version" defaultValue=""/>
+    <springProperty scope="context" name="appHost" source="spring.cloud.consul.discovery.ip_address" defaultValue=""/>
+    <springProperty scope="context" name="appPort" source="spring.cloud.consul.discovery.port" defaultValue=""/>
+    <springProperty scope="context" name="esHost" source="uw.logback.es.esHost" defaultValue="http://10.8.8.50:9200"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <appender name="ES" class="uw.logback.es.appender.ElasticSearchAppender">
+        <esHost>${esHost}</esHost>
+        <index>${appName}</index>
+        <indexType>logs</indexType>
+        <indexPattern>_yyyyMMdd</indexPattern>
+        <appName>${appVersion}</appName>
+        <appHost>${appHost}:${appPort}</appHost>
+        <throwableConverter
+                class="uw.logback.es.stacktrace.ShortenedThrowableConverter">
+            <maxDepthPerThrowable>100</maxDepthPerThrowable>
+            <maxLength>8096</maxLength>
+            <shortenedClassNameLength>100</shortenedClassNameLength>
+            <exclude>org\.springframwork\.*</exclude>
+            <rootCauseFirst>true</rootCauseFirst>
+        </throwableConverter>
+        <maxBatchThreads>5</maxBatchThreads>
+        <maxFlushInMilliseconds>10000</maxFlushInMilliseconds>
+        <jmxMonitoring>true</jmxMonitoring>
+    </appender>
+
+    <springProfile name="default,dev,test">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test,prod">
+        <root level="INFO">
+            <appender-ref ref="ES"/>
+        </root>
+    </springProfile>
+
+</configuration>
