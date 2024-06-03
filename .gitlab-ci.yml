@@ -4,7 +4,7 @@ stages:
 variables:
   APP_PORT: 10050
   APP_MEM: 200
-  APP_NAME: uw-tinyurl
+  APP_NAME: uw-notify-center
   REGISTRY: "dev.xili.pub:5000"
 
 # 编译
