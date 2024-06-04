@@ -6,23 +6,23 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+import uw.common.dto.ResponseData;
 import uw.notify.center.conf.UwNotifyCenterProperties;
 import uw.notify.center.constant.Constants;
-import uw.notify.center.vo.NotifyMsgVo;
 import uw.notify.center.util.NotifyJsonUtils;
+import uw.notify.center.vo.WebNotifyMsg;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 通知服务。
  */
 @Component
-public class NotifyCenterService {
+public class WebNotifyService {
 
-    private static final Logger log = LoggerFactory.getLogger( NotifyCenterService.class );
+    private static final Logger log = LoggerFactory.getLogger( WebNotifyService.class );
 
     private static ConcurrentHashMap<Long, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
@@ -30,24 +30,27 @@ public class NotifyCenterService {
 
     private static RedisTemplate<Long, Long> notifyRedisTemplate;
 
-    public NotifyCenterService(UwNotifyCenterProperties uwNotifyCenterProperties, RedisTemplate<Long, Long> notifyRedisTemplate) {
-        NotifyCenterService.uwNotifyCenterProperties = uwNotifyCenterProperties;
-        NotifyCenterService.notifyRedisTemplate = notifyRedisTemplate;
+    public WebNotifyService(UwNotifyCenterProperties uwNotifyCenterProperties, RedisTemplate<Long, Long> notifyRedisTemplate) {
+        WebNotifyService.uwNotifyCenterProperties = uwNotifyCenterProperties;
+        WebNotifyService.notifyRedisTemplate = notifyRedisTemplate;
     }
 
     /**
      * 给指定用户发信息
      */
-    public static void pushMsg(NotifyMsgVo notifyMsgVo) {
+    public static ResponseData pushMsg(WebNotifyMsg notifyMsgVo) {
         SseEmitter se = sseEmitterMap.get( notifyMsgVo.getUserId() );
         if (se == null) {
             //在redis中广播发送。
             notifyRedisTemplate.convertAndSend( Constants.REDIS_NOTIFY_CHANNEL, NotifyJsonUtils.toJSONString( notifyMsgVo ) );
+            return ResponseData.warn();
         }
         try {
             se.send( notifyMsgVo, MediaType.APPLICATION_JSON );
+            return ResponseData.success();
         } catch (Exception e) {
             log.error( "userId:{},发送信息出错:{}", notifyMsgVo.getUserId(), e.getMessage(), e );
+            return ResponseData.errorMsg( e.getMessage() );
         }
     }
 
@@ -75,7 +78,7 @@ public class NotifyCenterService {
      * @param userId
      * @return
      */
-    public static SseEmitter connect(long userId) {
+    public static SseEmitter openStream(long userId) {
         // 设置超时日期，0表示不过期
         SseEmitter sseEmitter = new SseEmitter( uwNotifyCenterProperties.getSseTimeout() );
         // 注册回调

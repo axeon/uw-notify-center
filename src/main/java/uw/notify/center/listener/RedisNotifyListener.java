@@ -4,9 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
-import uw.notify.center.service.NotifyCenterService;
+import uw.notify.center.service.WebNotifyService;
 import uw.notify.center.util.NotifyJsonUtils;
-import uw.notify.center.vo.NotifyMsgVo;
+import uw.notify.center.vo.WebNotifyMsg;
 
 
 /**
@@ -20,7 +20,7 @@ public class RedisNotifyListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        NotifyMsgVo notifyMsgVo = NotifyJsonUtils.parseObject(message.getBody(), NotifyMsgVo.class);
-        NotifyCenterService.pushMsg( notifyMsgVo );
+        WebNotifyMsg notifyMsgVo = NotifyJsonUtils.parseObject(message.getBody(), WebNotifyMsg.class);
+        WebNotifyService.pushMsg( notifyMsgVo );
     }
 }

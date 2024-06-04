@@ -45,7 +45,7 @@ public class SwaggerConfig {
     public GroupedOpenApi userApi() {
         return GroupedOpenApi.builder()
                 .group("user")
-                .packagesToScan("uw.notify.center.controller.admin")
+                .packagesToScan("uw.notify.center.controller.user")
                 .addOpenApiCustomizer(customOpenAPI())
                 .build();
     }
