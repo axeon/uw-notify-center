@@ -33,9 +33,9 @@ public class UwNotifyAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger( UwNotifyAutoConfiguration.class );
 
     @Bean
-    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, byte[]> fusionCacheRedisTemplate) {
+    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, byte[]> dataCacheRedisTemplate) {
         RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
-        redisMessageListenerContainer.setConnectionFactory( fusionCacheRedisTemplate.getConnectionFactory() );
+        redisMessageListenerContainer.setConnectionFactory( dataCacheRedisTemplate.getConnectionFactory() );
         RedisNotifyListener notifyListener = new RedisNotifyListener();
         redisMessageListenerContainer.addMessageListener( notifyListener, new ChannelTopic( Constants.REDIS_NOTIFY_CHANNEL ) );
         return redisMessageListenerContainer;
