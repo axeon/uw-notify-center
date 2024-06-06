@@ -36,7 +36,7 @@ public class NotifyRpcController {
     @PostMapping("/pushNotify")
     @MscPermDeclare(type = UserType.RPC, log = ActionLog.NONE)
     public ResponseData pushNotify(@RequestBody WebNotifyMsg webNotifyMsg) {
-        WebNotifyService.pushMsg( webNotifyMsg );
+        WebNotifyService.pushMsg( webNotifyMsg,true );
         return null;
     }
 

@@ -38,16 +38,16 @@ public class WebNotifyService {
     /**
      * 给指定用户发信息
      */
-    public static ResponseData pushMsg(WebNotifyMsg notifyMsgVo) {
+    public static ResponseData pushMsg(WebNotifyMsg notifyMsgVo, boolean autoRelay) {
         SseEmitter se = sseEmitterMap.get( notifyMsgVo.getUserId() );
-        if (se == null) {
-            //在redis中广播发送。
+        if (se == null && autoRelay) {
+            //如果本地不在线，并且开启了自动转发，则在redis中广播发送。
             notifyRedisTemplate.convertAndSend( Constants.REDIS_NOTIFY_CHANNEL, NotifyJsonUtils.toJSONString( notifyMsgVo ) );
-            return ResponseData.warn();
+            return ResponseData.WARN;
         }
         try {
             se.send( notifyMsgVo, MediaType.APPLICATION_JSON );
-            return ResponseData.success();
+            return ResponseData.SUCCESS;
         } catch (Exception e) {
             log.error( "userId:{},发送信息出错:{}", notifyMsgVo.getUserId(), e.getMessage(), e );
             return ResponseData.errorMsg( e.getMessage() );
