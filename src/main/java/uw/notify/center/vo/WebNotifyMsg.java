@@ -5,11 +5,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 
 /**
- * NotifyMsgVo类。
+ * WebNotifyMsg。
  *
  * @author axeon
  */
-@Schema(title = "消息推送web端记录", description = "消息推送web端记录")
+@Schema(title = "通知消息", description = "通知消息")
 public class WebNotifyMsg implements Serializable{
 
 	/**
@@ -55,10 +55,10 @@ public class WebNotifyMsg implements Serializable{
 	private String notifyContent;
 
 	/**
-	 * 跳转链接
+	 * 消息数据
 	 */
-	@Schema(title = "跳转链接", description = "跳转链接")
-	private String notifyUrl;
+	@Schema(title = "消息数据", description = "消息数据")
+	private Object notifyData;
 
 	private WebNotifyMsg(Builder builder) {
 		setUserId( builder.userId );
@@ -68,7 +68,7 @@ public class WebNotifyMsg implements Serializable{
 		setNotifyType( builder.notifyType );
 		setNotifySubject( builder.notifySubject );
 		setNotifyContent( builder.notifyContent );
-		setNotifyUrl( builder.notifyUrl );
+		setNotifyData( builder.notifyData );
 	}
 
 	public static Builder builder(WebNotifyMsg copy) {
@@ -80,7 +80,7 @@ public class WebNotifyMsg implements Serializable{
 		builder.notifyType = copy.getNotifyType();
 		builder.notifySubject = copy.getNotifySubject();
 		builder.notifyContent = copy.getNotifyContent();
-		builder.notifyUrl = copy.getNotifyUrl();
+		builder.notifyData = copy.getNotifyData();
 		return builder;
 	}
 
@@ -140,14 +140,13 @@ public class WebNotifyMsg implements Serializable{
 		this.notifyContent = notifyContent;
 	}
 
-	public String getNotifyUrl() {
-		return notifyUrl;
+	public Object getNotifyData() {
+		return notifyData;
 	}
 
-	public void setNotifyUrl(String notifyUrl) {
-		this.notifyUrl = notifyUrl;
+	public void setNotifyData(Object notifyData) {
+		this.notifyData = notifyData;
 	}
-
 
 	public static final class Builder {
 		private long userId;
@@ -157,7 +156,7 @@ public class WebNotifyMsg implements Serializable{
 		private String notifyType;
 		private String notifySubject;
 		private String notifyContent;
-		private String notifyUrl;
+		private Object notifyData;
 
 		private Builder() {
 		}
@@ -166,43 +165,43 @@ public class WebNotifyMsg implements Serializable{
 			return new Builder();
 		}
 
-		public Builder userId(long val) {
-			userId = val;
+		public Builder userId(long userId) {
+			this.userId = userId;
 			return this;
 		}
 
-		public Builder saasId(long val) {
-			saasId = val;
+		public Builder saasId(long saasId) {
+			this.saasId = saasId;
 			return this;
 		}
 
-		public Builder mchId(long val) {
-			mchId = val;
+		public Builder mchId(long mchId) {
+			this.mchId = mchId;
 			return this;
 		}
 
-		public Builder userType(int val) {
-			userType = val;
+		public Builder userType(int userType) {
+			this.userType = userType;
 			return this;
 		}
 
-		public Builder notifyType(String val) {
-			notifyType = val;
+		public Builder notifyType(String notifyType) {
+			this.notifyType = notifyType;
 			return this;
 		}
 
-		public Builder notifySubject(String val) {
-			notifySubject = val;
+		public Builder notifySubject(String notifySubject) {
+			this.notifySubject = notifySubject;
 			return this;
 		}
 
-		public Builder notifyContent(String val) {
-			notifyContent = val;
+		public Builder notifyContent(String notifyContent) {
+			this.notifyContent = notifyContent;
 			return this;
 		}
 
-		public Builder notifyUrl(String val) {
-			notifyUrl = val;
+		public Builder notifyData(Object notifyData) {
+			this.notifyData = notifyData;
 			return this;
 		}
 
