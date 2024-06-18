@@ -9,52 +9,12 @@
 
     <name>uw-notify-center</name>
     <description>UW通知中心</description>
-
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.umtone</groupId>
+        <artifactId>uw-base</artifactId>
+        <version>2024.0618.1832</version>
+        <relativePath/>
     </parent>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>21</java.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <spring-cloud.version>2023.0.1</spring-cloud.version>
-        <spring-cloud.alibaba.version>2023.0.1.0</spring-cloud.alibaba.version>
-        <guava.version>33.2.0-jre</guava.version>
-        <knife4j.version>4.5.0</knife4j.version>
-        <uw-auth-service.version>6.0.83</uw-auth-service.version>
-        <uw-logback-es.version>3.0.39</uw-logback-es.version>
-        <uw-log-es.version>3.0.35</uw-log-es.version>
-        <uw-dao.version>5.1.11</uw-dao.version>
-        <uw-common.version>1.0.1</uw-common.version>
-    </properties>
-
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- SpringCloud Alibaba 微服务 -->
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud.alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -87,37 +47,26 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-            <version>${knife4j.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>com.umtone</groupId>
-            <artifactId>uw-auth-service</artifactId>
-            <version>${uw-auth-service.version}</version>
+            <artifactId>uw-app-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.umtone</groupId>
             <artifactId>uw-log-es</artifactId>
-            <version>${uw-log-es.version}</version>
         </dependency>
         <dependency>
             <groupId>com.umtone</groupId>
             <artifactId>uw-logback-es</artifactId>
-            <version>${uw-logback-es.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.umtone</groupId>
-            <artifactId>uw-dao</artifactId>
-            <version>${uw-dao.version}</version>
         </dependency>
         <dependency>
             <groupId>com.umtone</groupId>
             <artifactId>uw-common</artifactId>
-            <version>${uw-common.version}</version>
         </dependency>
     </dependencies>
 
