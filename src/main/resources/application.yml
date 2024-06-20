@@ -1,3 +1,0 @@
-project:
-  name: @project.name@
-  version: @project.version@
