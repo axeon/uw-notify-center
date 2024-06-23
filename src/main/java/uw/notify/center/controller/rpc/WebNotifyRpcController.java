@@ -18,26 +18,17 @@ import uw.notify.center.vo.WebNotifyMsg;
  * rpc控制器。
  */
 @RestController
-@RequestMapping("/rpc/notify")
+@RequestMapping("/rpc/webNotify")
 @ResponseAdviceIgnore
-public class NotifyRpcController {
-
-
-    private WebNotifyService notifyService;
-
-    @Autowired
-    public NotifyRpcController(WebNotifyService notifyService) {
-        this.notifyService = notifyService;
-    }
+public class WebNotifyRpcController {
 
     /**
      * 推送通知。
      */
-    @PostMapping("/pushNotify")
+    @PostMapping("/pushMsg")
     @MscPermDeclare(type = UserType.RPC, log = ActionLog.NONE)
-    public ResponseData pushNotify(@RequestBody WebNotifyMsg webNotifyMsg) {
-        WebNotifyService.pushMsg( webNotifyMsg,true );
-        return null;
+    public ResponseData pushMsg(@RequestBody WebNotifyMsg webNotifyMsg) {
+        return WebNotifyService.pushMsg( webNotifyMsg,true );
     }
 
 }
