@@ -1,7 +1,6 @@
 package uw.notify.center.controller.rpc;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class WebNotifyRpcController {
      * 推送通知。
      */
     @PostMapping("/pushMsg")
-    @MscPermDeclare(type = UserType.RPC, log = ActionLog.NONE)
+    @MscPermDeclare(user = UserType.RPC, log = ActionLog.NONE)
     public ResponseData pushMsg(@RequestBody WebNotifyMsg webNotifyMsg) {
         return WebNotifyService.pushMsg( webNotifyMsg,true );
     }
