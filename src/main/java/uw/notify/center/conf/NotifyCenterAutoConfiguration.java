@@ -27,10 +27,10 @@ import uw.notify.center.listener.RedisNotifyListener;
  * 启动配置。
  */
 @Configuration
-@EnableConfigurationProperties({UwNotifyCenterProperties.class})
+@EnableConfigurationProperties({NotifyCenterProperties.class})
 @AutoConfigureAfter({RedisAutoConfiguration.class})
-public class UwNotifyAutoConfiguration {
-    private static final Logger log = LoggerFactory.getLogger( UwNotifyAutoConfiguration.class );
+public class NotifyCenterAutoConfiguration {
+    private static final Logger log = LoggerFactory.getLogger( NotifyCenterAutoConfiguration.class );
 
     @Bean
     public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<Long, Long> notifyRedisTemplate) {
@@ -49,7 +49,7 @@ public class UwNotifyAutoConfiguration {
      * @return
      */
     @Bean
-    public RedisTemplate<Long, Long> notifyRedisTemplate(final UwNotifyCenterProperties uwNotifyCenterProperties,
+    public RedisTemplate<Long, Long> notifyRedisTemplate(final NotifyCenterProperties uwNotifyCenterProperties,
                                                          final ClientResources clientResources) {
         RedisTemplate<Long, Long> redisTemplate = new RedisTemplate<>();
         redisTemplate.setKeySerializer( new GenericToStringSerializer<Long>( Long.class ) );

@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import uw.common.dto.ResponseData;
-import uw.notify.center.conf.UwNotifyCenterProperties;
+import uw.notify.center.conf.NotifyCenterProperties;
 import uw.notify.center.constant.Constants;
 import uw.notify.center.util.NotifyJsonUtils;
 import uw.notify.center.vo.WebNotifyMsg;
@@ -26,11 +26,11 @@ public class WebNotifyService {
 
     private static ConcurrentHashMap<Long, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
-    private static UwNotifyCenterProperties uwNotifyCenterProperties;
+    private static NotifyCenterProperties uwNotifyCenterProperties;
 
     private static RedisTemplate<Long, Long> notifyRedisTemplate;
 
-    public WebNotifyService(UwNotifyCenterProperties uwNotifyCenterProperties, RedisTemplate<Long, Long> notifyRedisTemplate) {
+    public WebNotifyService(NotifyCenterProperties uwNotifyCenterProperties, RedisTemplate<Long, Long> notifyRedisTemplate) {
         WebNotifyService.uwNotifyCenterProperties = uwNotifyCenterProperties;
         WebNotifyService.notifyRedisTemplate = notifyRedisTemplate;
     }

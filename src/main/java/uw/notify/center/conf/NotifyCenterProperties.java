@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConfigurationProperties(prefix = "uw.notify.center")
-public class UwNotifyCenterProperties {
+public class NotifyCenterProperties {
 
     /**
      * sse超时时间。
