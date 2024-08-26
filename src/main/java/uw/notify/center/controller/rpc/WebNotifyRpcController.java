@@ -17,16 +17,16 @@ import uw.notify.center.vo.WebNotifyMsg;
  * rpc控制器。
  */
 @RestController
-@RequestMapping("/rpc/webNotify")
+@RequestMapping("/rpc/notify")
 @ResponseAdviceIgnore
 public class WebNotifyRpcController {
 
     /**
      * 推送通知。
      */
-    @PostMapping("/pushMsg")
+    @PostMapping("/pushNotify")
     @MscPermDeclare(user = UserType.RPC, log = ActionLog.NONE)
-    public ResponseData pushMsg(@RequestBody WebNotifyMsg webNotifyMsg) {
+    public ResponseData pushNotify(@RequestBody WebNotifyMsg webNotifyMsg) {
         return WebNotifyService.pushMsg( webNotifyMsg,true );
     }
 

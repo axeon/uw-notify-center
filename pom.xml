@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.umtone</groupId>
     <artifactId>uw-notify-center</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.5</version>
     <packaging>jar</packaging>
 
     <name>uw-notify-center</name>
@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.umtone</groupId>
         <artifactId>uw-base</artifactId>
-        <version>2024.0803.0930</version>
+        <version>2024.0803.0931</version>
         <relativePath/>
     </parent>
 
