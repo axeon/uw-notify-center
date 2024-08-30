@@ -10,203 +10,206 @@ import java.io.Serializable;
  * @author axeon
  */
 @Schema(title = "通知消息", description = "通知消息")
-public class WebNotifyMsg implements Serializable{
+public class WebNotifyMsg implements Serializable {
 
-	/**
-	 * 用户ID
-	 */
-	@Schema(title = "用户ID", description = "用户ID")
-	private long userId;
+    /**
+     * 用户ID
+     */
+    @Schema(title = "用户ID", description = "用户ID")
+    private long userId;
 
-	/**
-	 * 运营商编号
-	 */
-	@Schema(title = "运营商编号", description = "运营商编号")
-	private long saasId;
+    /**
+     * 运营商编号
+     */
+    @Schema(title = "运营商编号", description = "运营商编号")
+    private long saasId;
 
-	/**
-	 * 商户编号
-	 */
-	@Schema(title = "商户编号", description = "商户编号")
-	private long mchId;
+    /**
+     * 商户编号
+     */
+    @Schema(title = "商户编号", description = "商户编号")
+    private long mchId;
 
-	/**
-	 * 用户类型
-	 */
-	@Schema(title = "用户类型", description = "用户类型")
-	private int userType;
+    /**
+     * 用户类型
+     */
+    @Schema(title = "用户类型", description = "用户类型")
+    private int userType;
 
-	/**
-	 * 通知类型
-	 */
-	@Schema(title = "通知类型", description = "通知类型")
-	private String notifyType;
+    /**
+     * 通知类型
+     */
+    @Schema(title = "通知类型", description = "通知类型")
+    private String notifyType;
 
-	/**
-	 * 消息标题
-	 */
-	@Schema(title = "消息标题", description = "消息标题")
-	private String notifySubject;
+    /**
+     * 消息标题
+     */
+    @Schema(title = "消息标题", description = "消息标题")
+    private String notifySubject;
 
-	/**
-	 * 消息内容
-	 */
-	@Schema(title = "消息内容", description = "消息内容")
-	private String notifyContent;
+    /**
+     * 消息内容
+     */
+    @Schema(title = "消息内容", description = "消息内容")
+    private String notifyContent;
 
-	/**
-	 * 消息数据
-	 */
-	@Schema(title = "消息数据", description = "消息数据")
-	private Object notifyData;
+    /**
+     * 消息数据
+     */
+    @Schema(title = "消息数据", description = "消息数据")
+    private Object notifyData;
 
-	private WebNotifyMsg(Builder builder) {
-		setUserId( builder.userId );
-		setSaasId( builder.saasId );
-		setMchId( builder.mchId );
-		setUserType( builder.userType );
-		setNotifyType( builder.notifyType );
-		setNotifySubject( builder.notifySubject );
-		setNotifyContent( builder.notifyContent );
-		setNotifyData( builder.notifyData );
-	}
+    public WebNotifyMsg() {
+    }
 
-	public static Builder builder() {
-		return new Builder();
-	}
+    private WebNotifyMsg(Builder builder) {
+        setUserId( builder.userId );
+        setSaasId( builder.saasId );
+        setMchId( builder.mchId );
+        setUserType( builder.userType );
+        setNotifyType( builder.notifyType );
+        setNotifySubject( builder.notifySubject );
+        setNotifyContent( builder.notifyContent );
+        setNotifyData( builder.notifyData );
+    }
 
-	public static Builder builder(WebNotifyMsg copy) {
-		Builder builder = new Builder();
-		builder.userId = copy.getUserId();
-		builder.saasId = copy.getSaasId();
-		builder.mchId = copy.getMchId();
-		builder.userType = copy.getUserType();
-		builder.notifyType = copy.getNotifyType();
-		builder.notifySubject = copy.getNotifySubject();
-		builder.notifyContent = copy.getNotifyContent();
-		builder.notifyData = copy.getNotifyData();
-		return builder;
-	}
+    public static Builder builder() {
+        return new Builder();
+    }
 
-	public long getUserId() {
-		return userId;
-	}
+    public static Builder builder(WebNotifyMsg copy) {
+        Builder builder = new Builder();
+        builder.userId = copy.getUserId();
+        builder.saasId = copy.getSaasId();
+        builder.mchId = copy.getMchId();
+        builder.userType = copy.getUserType();
+        builder.notifyType = copy.getNotifyType();
+        builder.notifySubject = copy.getNotifySubject();
+        builder.notifyContent = copy.getNotifyContent();
+        builder.notifyData = copy.getNotifyData();
+        return builder;
+    }
 
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
+    public long getUserId() {
+        return userId;
+    }
 
-	public long getSaasId() {
-		return saasId;
-	}
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
-	public void setSaasId(long saasId) {
-		this.saasId = saasId;
-	}
+    public long getSaasId() {
+        return saasId;
+    }
 
-	public long getMchId() {
-		return mchId;
-	}
+    public void setSaasId(long saasId) {
+        this.saasId = saasId;
+    }
 
-	public void setMchId(long mchId) {
-		this.mchId = mchId;
-	}
+    public long getMchId() {
+        return mchId;
+    }
 
-	public int getUserType() {
-		return userType;
-	}
+    public void setMchId(long mchId) {
+        this.mchId = mchId;
+    }
 
-	public void setUserType(int userType) {
-		this.userType = userType;
-	}
+    public int getUserType() {
+        return userType;
+    }
 
-	public String getNotifyType() {
-		return notifyType;
-	}
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
 
-	public void setNotifyType(String notifyType) {
-		this.notifyType = notifyType;
-	}
+    public String getNotifyType() {
+        return notifyType;
+    }
 
-	public String getNotifySubject() {
-		return notifySubject;
-	}
+    public void setNotifyType(String notifyType) {
+        this.notifyType = notifyType;
+    }
 
-	public void setNotifySubject(String notifySubject) {
-		this.notifySubject = notifySubject;
-	}
+    public String getNotifySubject() {
+        return notifySubject;
+    }
 
-	public String getNotifyContent() {
-		return notifyContent;
-	}
+    public void setNotifySubject(String notifySubject) {
+        this.notifySubject = notifySubject;
+    }
 
-	public void setNotifyContent(String notifyContent) {
-		this.notifyContent = notifyContent;
-	}
+    public String getNotifyContent() {
+        return notifyContent;
+    }
 
-	public Object getNotifyData() {
-		return notifyData;
-	}
+    public void setNotifyContent(String notifyContent) {
+        this.notifyContent = notifyContent;
+    }
 
-	public void setNotifyData(Object notifyData) {
-		this.notifyData = notifyData;
-	}
+    public Object getNotifyData() {
+        return notifyData;
+    }
 
-	public static final class Builder {
-		private long userId;
-		private long saasId;
-		private long mchId;
-		private int userType;
-		private String notifyType;
-		private String notifySubject;
-		private String notifyContent;
-		private Object notifyData;
+    public void setNotifyData(Object notifyData) {
+        this.notifyData = notifyData;
+    }
 
-		private Builder() {
-		}
+    public static final class Builder {
+        private long userId;
+        private long saasId;
+        private long mchId;
+        private int userType;
+        private String notifyType;
+        private String notifySubject;
+        private String notifyContent;
+        private Object notifyData;
 
-		public Builder userId(long userId) {
-			this.userId = userId;
-			return this;
-		}
+        private Builder() {
+        }
 
-		public Builder saasId(long saasId) {
-			this.saasId = saasId;
-			return this;
-		}
+        public Builder userId(long userId) {
+            this.userId = userId;
+            return this;
+        }
 
-		public Builder mchId(long mchId) {
-			this.mchId = mchId;
-			return this;
-		}
+        public Builder saasId(long saasId) {
+            this.saasId = saasId;
+            return this;
+        }
 
-		public Builder userType(int userType) {
-			this.userType = userType;
-			return this;
-		}
+        public Builder mchId(long mchId) {
+            this.mchId = mchId;
+            return this;
+        }
 
-		public Builder notifyType(String notifyType) {
-			this.notifyType = notifyType;
-			return this;
-		}
+        public Builder userType(int userType) {
+            this.userType = userType;
+            return this;
+        }
 
-		public Builder notifySubject(String notifySubject) {
-			this.notifySubject = notifySubject;
-			return this;
-		}
+        public Builder notifyType(String notifyType) {
+            this.notifyType = notifyType;
+            return this;
+        }
 
-		public Builder notifyContent(String notifyContent) {
-			this.notifyContent = notifyContent;
-			return this;
-		}
+        public Builder notifySubject(String notifySubject) {
+            this.notifySubject = notifySubject;
+            return this;
+        }
 
-		public Builder notifyData(Object notifyData) {
-			this.notifyData = notifyData;
-			return this;
-		}
+        public Builder notifyContent(String notifyContent) {
+            this.notifyContent = notifyContent;
+            return this;
+        }
 
-		public WebNotifyMsg build() {
-			return new WebNotifyMsg( this );
-		}
-	}
+        public Builder notifyData(Object notifyData) {
+            this.notifyData = notifyData;
+            return this;
+        }
+
+        public WebNotifyMsg build() {
+            return new WebNotifyMsg( this );
+        }
+    }
 }
