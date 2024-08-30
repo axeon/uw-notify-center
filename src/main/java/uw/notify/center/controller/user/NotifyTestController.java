@@ -4,8 +4,7 @@ package uw.notify.center.controller.user;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import uw.auth.service.AuthServiceHelper;
 import uw.auth.service.annotation.MscPermDeclare;
 import uw.auth.service.annotation.ResponseAdviceIgnore;
@@ -24,10 +23,10 @@ import uw.notify.client.vo.WebNotifyMsg;
 @ResponseAdviceIgnore
 public class NotifyTestController {
 
-    @GetMapping("/send")
-    @Operation(summary = "发送消息", description = "发送消息")
+    @PostMapping("/send")
+    @Operation(summary = "给自己发送测试消息", description = "给自己发送测试消息")
     @MscPermDeclare(auth = AuthType.NONE)
-    public ResponseData send(WebNotifyMsg webNotifyMsg) {
+    public ResponseData send(@RequestBody WebNotifyMsg webNotifyMsg) {
         webNotifyMsg.setUserId( AuthServiceHelper.getUserId() );
         webNotifyMsg.setSaasId( AuthServiceHelper.getSaasId() );
         webNotifyMsg.setMchId( AuthServiceHelper.getMchId() );
