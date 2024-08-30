@@ -2,6 +2,7 @@ package uw.notify.center.controller.user;
 
 
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import uw.notify.center.service.WebNotifyService;
 @ResponseAdviceIgnore
 public class NotifyUserController {
 
-    @GetMapping("/stream")
+    @GetMapping(value = "/stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
     @Operation(summary = "建立连接", description = "建立连接")
     @MscPermDeclare(auth = AuthType.NONE)
     public SseEmitter stream() {
