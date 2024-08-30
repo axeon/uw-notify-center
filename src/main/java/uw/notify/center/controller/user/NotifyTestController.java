@@ -10,15 +10,15 @@ import uw.auth.service.annotation.MscPermDeclare;
 import uw.auth.service.annotation.ResponseAdviceIgnore;
 import uw.auth.service.constant.AuthType;
 import uw.common.dto.ResponseData;
+import uw.notify.center.service.WebNotifyService;
 import uw.notify.client.NotifyClientHelper;
 import uw.notify.client.vo.WebNotifyMsg;
 
 /**
- * 对外提供短链转发功能。
- * 一般需要在nginx上设置重写。
+ * 测试接口。
  */
 @Profile({"default", "test", "dev"})
-@Controller
+@RestController
 @RequestMapping("/user/test")
 @ResponseAdviceIgnore
 public class NotifyTestController {

@@ -50,6 +50,7 @@ public class WebNotifyService {
         }
         try {
             se.send( webNotifyMsg, MediaType.APPLICATION_JSON );
+            se.complete();
             return ResponseData.SUCCESS;
         } catch (Exception e) {
             log.error( "指定用户[{}]发送信息出错：{}", webNotifyMsg.getUserId(), e.getMessage(), e );

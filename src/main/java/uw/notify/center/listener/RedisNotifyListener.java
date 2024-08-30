@@ -21,6 +21,8 @@ public class RedisNotifyListener implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         WebNotifyMsg webNotifyMsg = NotifyJsonUtils.parseObject( message.getBody(), WebNotifyMsg.class );
-        WebNotifyService.pushMsg( webNotifyMsg, false );
+        if (webNotifyMsg != null) {
+            WebNotifyService.pushMsg( webNotifyMsg, false );
+        }
     }
 }

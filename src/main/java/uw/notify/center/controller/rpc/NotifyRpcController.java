@@ -19,7 +19,7 @@ import uw.notify.client.vo.WebNotifyMsg;
 @RestController
 @RequestMapping("/rpc/notify")
 @ResponseAdviceIgnore
-public class WebNotifyRpcController {
+public class NotifyRpcController {
 
     /**
      * 推送通知。
