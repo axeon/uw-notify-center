@@ -6,7 +6,7 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import uw.notify.center.service.WebNotifyService;
 import uw.notify.center.util.NotifyJsonUtils;
-import uw.notify.center.vo.WebNotifyMsg;
+import uw.notify.client.vo.WebNotifyMsg;
 
 
 /**
@@ -20,7 +20,7 @@ public class RedisNotifyListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        WebNotifyMsg notifyMsgVo = NotifyJsonUtils.parseObject( message.getBody(), WebNotifyMsg.class );
-        WebNotifyService.pushMsg( notifyMsgVo, false );
+        WebNotifyMsg webNotifyMsg = NotifyJsonUtils.parseObject( message.getBody(), WebNotifyMsg.class );
+        WebNotifyService.pushMsg( webNotifyMsg, false );
     }
 }

@@ -48,6 +48,10 @@
         </dependency>
         <dependency>
             <groupId>com.umtone</groupId>
+            <artifactId>uw-notify-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.umtone</groupId>
             <artifactId>uw-log-es</artifactId>
         </dependency>
         <dependency>

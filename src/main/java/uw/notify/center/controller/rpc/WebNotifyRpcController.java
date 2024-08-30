@@ -11,7 +11,7 @@ import uw.auth.service.constant.ActionLog;
 import uw.auth.service.constant.UserType;
 import uw.common.dto.ResponseData;
 import uw.notify.center.service.WebNotifyService;
-import uw.notify.center.vo.WebNotifyMsg;
+import uw.notify.client.vo.WebNotifyMsg;
 
 /**
  * rpc控制器。

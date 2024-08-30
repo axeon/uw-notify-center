@@ -10,7 +10,7 @@ import uw.common.dto.ResponseData;
 import uw.notify.center.conf.UwNotifyCenterProperties;
 import uw.notify.center.constant.Constants;
 import uw.notify.center.util.NotifyJsonUtils;
-import uw.notify.center.vo.WebNotifyMsg;
+import uw.notify.client.vo.WebNotifyMsg;
 
 import java.util.ArrayList;
 import java.util.List;
