@@ -29,8 +29,6 @@ public class NotifyTestController {
     public ResponseData send(@RequestBody WebNotifyMsg webNotifyMsg) {
         webNotifyMsg.setUserId( AuthServiceHelper.getUserId() );
         webNotifyMsg.setSaasId( AuthServiceHelper.getSaasId() );
-        webNotifyMsg.setMchId( AuthServiceHelper.getMchId() );
-        webNotifyMsg.setUserType( AuthServiceHelper.getUserType() );
         return NotifyClientHelper.pushNotify( webNotifyMsg );
     }
 

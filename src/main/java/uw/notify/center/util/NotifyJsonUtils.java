@@ -25,7 +25,7 @@ public class NotifyJsonUtils {
         try {
             return OBJECT_MAPPER.readValue( data, valueType );
         } catch (Exception e) {
-            logger.error( "JsonUtils parseObject error params:{}, message: {}", new String( data ), e.getMessage(), e );
+            logger.error( "NotifyJsonUtils parseObject error params:{}, message: {}", new String( data ), e.getMessage(), e );
         }
         return null;
     }
@@ -41,7 +41,7 @@ public class NotifyJsonUtils {
         try {
             return OBJECT_MAPPER.writeValueAsString( value );
         } catch (Exception e) {
-            logger.error( "JsonUtils toJSONString error params:{}, message: {}", value, e.getMessage(), e );
+            logger.error( "NotifyJsonUtils toJSONString error params:{}, message: {}", value, e.getMessage(), e );
         }
         return null;
     }

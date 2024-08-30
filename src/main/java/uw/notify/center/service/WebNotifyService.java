@@ -24,7 +24,7 @@ public class WebNotifyService {
 
     private static final Logger log = LoggerFactory.getLogger( WebNotifyService.class );
 
-    private static ConcurrentHashMap<Long, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
     private static UwNotifyCenterProperties uwNotifyCenterProperties;
 
@@ -49,7 +49,7 @@ public class WebNotifyService {
             return ResponseData.errorMsg( "指定用户[" + webNotifyMsg.getUserId() + "]不在线！" );
         }
         try {
-            se.send( webNotifyMsg, MediaType.APPLICATION_JSON );
+            se.send( webNotifyMsg.getNotifyBody(), MediaType.APPLICATION_JSON );
             se.complete();
             return ResponseData.SUCCESS;
         } catch (Exception e) {
