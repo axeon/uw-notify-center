@@ -38,18 +38,21 @@ public class WebNotifyService {
     /**
      * 给指定用户发信息
      */
-    public static ResponseData pushMsg(WebNotifyMsg notifyMsgVo, boolean autoRelay) {
-        SseEmitter se = sseEmitterMap.get( notifyMsgVo.getUserId() );
+    public static ResponseData pushMsg(WebNotifyMsg webNotifyMsg, boolean autoRelay) {
+        SseEmitter se = sseEmitterMap.get( webNotifyMsg.getUserId() );
         if (se == null && autoRelay) {
             //如果本地不在线，并且开启了自动转发，则在redis中广播发送。
-            notifyRedisTemplate.convertAndSend( Constants.REDIS_NOTIFY_CHANNEL, NotifyJsonUtils.toJSONString( notifyMsgVo ) );
+            notifyRedisTemplate.convertAndSend( Constants.REDIS_NOTIFY_CHANNEL, NotifyJsonUtils.toJSONString( webNotifyMsg ) );
             return ResponseData.WARN;
         }
+        if (se == null) {
+            return ResponseData.errorMsg( "指定用户[" + webNotifyMsg.getUserId() + "]不在线！" );
+        }
         try {
-            se.send( notifyMsgVo, MediaType.APPLICATION_JSON );
+            se.send( webNotifyMsg, MediaType.APPLICATION_JSON );
             return ResponseData.SUCCESS;
         } catch (Exception e) {
-            log.error( "userId:{},发送信息出错:{}", notifyMsgVo.getUserId(), e.getMessage(), e );
+            log.error( "指定用户[{}]发送信息出错：{}", webNotifyMsg.getUserId(), e.getMessage(), e );
             return ResponseData.errorMsg( e.getMessage() );
         }
     }
