@@ -24,7 +24,7 @@ import uw.notify.client.vo.WebNotifyMsg;
 public class NotifyTestController {
 
     @PostMapping("/send")
-    @Operation(summary = "给自己发送测试消息", description = "给自己发送测试消息")
+    @Operation(summary = "自发自收", description = "自发自收")
     @MscPermDeclare(auth = AuthType.NONE)
     public ResponseData send(@RequestBody WebNotifyMsg webNotifyMsg) {
         webNotifyMsg.setUserId( AuthServiceHelper.getUserId() );

@@ -21,7 +21,7 @@ import uw.notify.center.service.WebNotifyService;
 public class NotifyUserController {
 
     @GetMapping(value = "/stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
-    @Operation(summary = "建立连接", description = "建立连接")
+    @Operation(summary = "SSE端点", description = "SSE端点")
     @MscPermDeclare(auth = AuthType.NONE)
     public SseEmitter stream() {
         long userId = AuthServiceHelper.getUserId();
