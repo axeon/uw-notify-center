@@ -82,6 +82,7 @@ public class NotifyCenterAutoConfiguration {
                 config.setMaxWait( pool.getMaxWait() );
             }
             builder = LettucePoolingClientConfiguration.builder().poolConfig( config );
+
         }
 
         if (redisProperties.getTimeout() != null) {
@@ -94,15 +95,20 @@ public class NotifyCenterAutoConfiguration {
             }
         }
         builder.clientResources( clientResources );
-        LettuceClientConfiguration config = builder.build();
-
+        if (redisProperties.getSsl()!=null) {
+            builder.useSsl();
+//            LettuceClientConfiguration.LettuceSslClientConfigurationBuilder sslBuilder = builder.useSsl();
+//            if (redisProperties.getSsl().getBundle()!=null) {
+//            }
+        }
+        LettuceClientConfiguration clientConfig = builder.build();
         RedisStandaloneConfiguration standaloneConfig = new RedisStandaloneConfiguration();
         standaloneConfig.setHostName( redisProperties.getHost() );
         standaloneConfig.setPort( redisProperties.getPort() );
-        standaloneConfig.setPassword( RedisPassword.of( redisProperties.getPassword() ) );
         standaloneConfig.setDatabase( redisProperties.getDatabase() );
-
-        LettuceConnectionFactory factory = new LettuceConnectionFactory( standaloneConfig, config );
+        standaloneConfig.setPassword( RedisPassword.of( redisProperties.getPassword() ) );
+        standaloneConfig.setUsername( redisProperties.getUsername() );
+        LettuceConnectionFactory factory = new LettuceConnectionFactory( standaloneConfig, clientConfig );
         factory.afterPropertiesSet();
         return factory;
     }
