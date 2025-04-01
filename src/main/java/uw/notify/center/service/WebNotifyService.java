@@ -7,9 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import uw.common.dto.ResponseData;
+import uw.common.util.JsonUtils;
 import uw.notify.center.conf.UwNotifyCenterProperties;
 import uw.notify.center.constant.Constants;
-import uw.notify.center.util.NotifyJsonUtils;
 import uw.notify.client.vo.WebNotifyMsg;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class WebNotifyService {
         SseEmitter se = sseEmitterMap.get( webNotifyMsg.getUserId() );
         if (se == null && autoRelay) {
             //如果本地不在线，并且开启了自动转发，则在redis中广播发送。
-            notifyRedisTemplate.convertAndSend( Constants.REDIS_NOTIFY_CHANNEL, NotifyJsonUtils.toJSONString( webNotifyMsg ) );
+            notifyRedisTemplate.convertAndSend( Constants.REDIS_NOTIFY_CHANNEL, JsonUtils.toString( webNotifyMsg ) );
             return ResponseData.WARN;
         }
         if (se == null) {
