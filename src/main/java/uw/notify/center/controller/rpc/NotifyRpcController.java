@@ -25,7 +25,7 @@ public class NotifyRpcController {
      * 推送通知。
      */
     @PostMapping("/pushNotify")
-    @MscPermDeclare(user = UserType.RPC, log = ActionLog.NONE)
+    @MscPermDeclare(user = UserType.RPC)
     public ResponseData pushNotify(@RequestBody WebNotifyMsg webNotifyMsg) {
         return WebNotifyService.pushMsg( webNotifyMsg,true );
     }
