@@ -59,7 +59,7 @@ public class WebNotifyService {
     }
 
     /**
-     * 获得ID列表。
+     * 获取ID列表。
      *
      * @return
      */
@@ -68,7 +68,7 @@ public class WebNotifyService {
     }
 
     /**
-     * 获得在线数。
+     * 获取在线数。
      *
      * @return
      */
