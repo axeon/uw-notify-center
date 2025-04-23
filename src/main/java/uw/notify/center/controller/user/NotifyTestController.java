@@ -3,14 +3,15 @@ package uw.notify.center.controller.user;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import uw.auth.service.AuthServiceHelper;
 import uw.auth.service.annotation.MscPermDeclare;
 import uw.auth.service.annotation.ResponseAdviceIgnore;
 import uw.auth.service.constant.AuthType;
 import uw.common.dto.ResponseData;
-import uw.notify.center.service.WebNotifyService;
 import uw.notify.client.NotifyClientHelper;
 import uw.notify.client.vo.WebNotifyMsg;
 

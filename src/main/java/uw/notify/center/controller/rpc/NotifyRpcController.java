@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uw.auth.service.annotation.MscPermDeclare;
 import uw.auth.service.annotation.ResponseAdviceIgnore;
-import uw.auth.service.constant.ActionLog;
 import uw.auth.service.constant.UserType;
 import uw.common.dto.ResponseData;
 import uw.notify.center.service.WebNotifyService;
