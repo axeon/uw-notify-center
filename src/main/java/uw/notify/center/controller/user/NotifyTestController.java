@@ -18,7 +18,7 @@ import uw.notify.client.vo.WebNotifyMsg;
 /**
  * 测试接口。
  */
-@Profile({"default", "test", "dev"})
+@Profile({"dev"})
 @RestController
 @RequestMapping("/user/test")
 @ResponseAdviceIgnore
