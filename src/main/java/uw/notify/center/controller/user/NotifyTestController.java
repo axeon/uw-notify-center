@@ -3,6 +3,7 @@ package uw.notify.center.controller.user;
 
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.context.annotation.Profile;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class NotifyTestController {
     @PostMapping("/send")
     @Operation(summary = "自发自收", description = "自发自收")
     @MscPermDeclare(auth = AuthType.NONE)
-    public ResponseData send(@RequestBody WebNotifyMsg webNotifyMsg) {
+    public ResponseData send(@Valid @RequestBody WebNotifyMsg webNotifyMsg) {
         webNotifyMsg.setUserId( AuthServiceHelper.getUserId() );
         webNotifyMsg.setSaasId( AuthServiceHelper.getSaasId() );
         return NotifyClientHelper.pushNotify( webNotifyMsg );

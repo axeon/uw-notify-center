@@ -19,9 +19,13 @@ public class RedisNotifyListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        WebNotifyMsg webNotifyMsg = JsonUtils.parse( message.getBody(), WebNotifyMsg.class );
-        if (webNotifyMsg != null) {
-            WebNotifyService.pushMsg( webNotifyMsg, false );
+        try {
+            WebNotifyMsg webNotifyMsg = JsonUtils.parse( message.getBody(), WebNotifyMsg.class );
+            if (webNotifyMsg != null) {
+                WebNotifyService.pushMsg( webNotifyMsg, false );
+            }
+        } catch (Exception e) {
+            logger.error( "解析Redis通知消息失败: {}", e.getMessage(), e );
         }
     }
 }

@@ -2,6 +2,9 @@ package uw.notify.center.constant;
 
 public class Constants {
 
+    private Constants() {
+    }
+
     /**
      * redis notify通道名。
      */

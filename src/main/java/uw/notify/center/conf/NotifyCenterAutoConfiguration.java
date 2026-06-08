@@ -20,8 +20,8 @@ import org.springframework.data.redis.connection.lettuce.LettucePoolingClientCon
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
-import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import uw.notify.center.constant.Constants;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import uw.notify.center.listener.RedisNotifyListener;
 
 /**
@@ -34,11 +34,10 @@ public class NotifyCenterAutoConfiguration {
     private static final Logger log = LoggerFactory.getLogger( NotifyCenterAutoConfiguration.class );
 
     @Bean
-    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<Long, Long> notifyRedisTemplate) {
+    public RedisMessageListenerContainer redisMessageListenerContainer(RedisTemplate<String, String> notifyRedisTemplate) {
         RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory( notifyRedisTemplate.getConnectionFactory() );
-        RedisNotifyListener notifyListener = new RedisNotifyListener();
-        redisMessageListenerContainer.addMessageListener( notifyListener, new ChannelTopic( Constants.REDIS_NOTIFY_CHANNEL ) );
+        redisMessageListenerContainer.addMessageListener( new RedisNotifyListener(), new ChannelTopic( Constants.REDIS_NOTIFY_CHANNEL ) );
         return redisMessageListenerContainer;
     }
 
@@ -50,12 +49,14 @@ public class NotifyCenterAutoConfiguration {
      * @return
      */
     @Bean
-    public RedisTemplate<Long, Long> notifyRedisTemplate(final UwNotifyCenterProperties uwNotifyCenterProperties, final ClientResources clientResources) {
-        RedisTemplate<Long, Long> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setKeySerializer( new GenericToStringSerializer<Long>( Long.class ) );
-        redisTemplate.setValueSerializer( new GenericToStringSerializer<Long>( Long.class ) );
+    public RedisTemplate<String, String> notifyRedisTemplate(final UwNotifyCenterProperties uwNotifyCenterProperties, final ClientResources clientResources) {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+        StringRedisSerializer stringSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer( stringSerializer );
+        redisTemplate.setValueSerializer( stringSerializer );
+        redisTemplate.setHashKeySerializer( stringSerializer );
+        redisTemplate.setHashValueSerializer( stringSerializer );
         redisTemplate.setConnectionFactory( redisConnectionFactory( uwNotifyCenterProperties.getRedis(), clientResources ) );
-        redisTemplate.setEnableDefaultSerializer( false );
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
@@ -69,7 +70,14 @@ public class NotifyCenterAutoConfiguration {
      */
     private RedisConnectionFactory redisConnectionFactory(RedisProperties redisProperties, ClientResources clientResources) {
         //设置连接池。
-        RedisProperties.Pool poolProperties = redisProperties.getLettuce().getPool();
+        RedisProperties.Lettuce lettuce = redisProperties.getLettuce();
+        if (lettuce == null) {
+            lettuce = new RedisProperties.Lettuce();
+        }
+        RedisProperties.Pool poolProperties = lettuce.getPool();
+        if (poolProperties == null) {
+            poolProperties = new RedisProperties.Pool();
+        }
         GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
         poolConfig.setMaxTotal( poolProperties.getMaxActive() );
         poolConfig.setMaxIdle( poolProperties.getMaxIdle() );
@@ -82,9 +90,8 @@ public class NotifyCenterAutoConfiguration {
             builder.commandTimeout( redisProperties.getTimeout() );
         }
         //设置shutdownTimeout。
-        RedisProperties.Lettuce lettuce = redisProperties.getLettuce();
         if (lettuce.getShutdownTimeout() != null && !lettuce.getShutdownTimeout().isZero()) {
-            builder.shutdownTimeout( redisProperties.getLettuce().getShutdownTimeout() );
+            builder.shutdownTimeout( lettuce.getShutdownTimeout() );
         }
         //设置clientResources。
         builder.clientResources( clientResources );

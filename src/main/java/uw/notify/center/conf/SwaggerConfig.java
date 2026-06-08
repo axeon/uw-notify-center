@@ -42,11 +42,11 @@ public class SwaggerConfig {
      * @return
      */
     @Bean
-    public GroupedOpenApi userApi() {
+    public GroupedOpenApi userApi(OpenApiCustomizer customOpenAPI) {
         return GroupedOpenApi.builder()
                 .group("userApi")
                 .packagesToScan("uw.notify.center.controller.user")
-                .addOpenApiCustomizer(customOpenAPI())
+                .addOpenApiCustomizer(customOpenAPI)
                 .build();
     }
 
