@@ -12,7 +12,7 @@ import uw.auth.service.AuthServiceHelper;
 import uw.auth.service.annotation.MscPermDeclare;
 import uw.auth.service.annotation.ResponseAdviceIgnore;
 import uw.auth.service.constant.AuthType;
-import uw.common.dto.ResponseData;
+import uw.common.response.ResponseData;
 import uw.notify.client.NotifyClientHelper;
 import uw.notify.client.vo.WebNotifyMsg;
 
@@ -22,9 +22,11 @@ import uw.notify.client.vo.WebNotifyMsg;
 @Profile({"debug","dev"})
 @RestController
 @RequestMapping("/user/test")
-@ResponseAdviceIgnore
 public class NotifyTestController {
 
+    /**
+     * 自发自收测试通知。
+     */
     @PostMapping("/send")
     @Operation(summary = "自发自收", description = "自发自收")
     @MscPermDeclare(auth = AuthType.NONE)

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import uw.auth.service.annotation.MscPermDeclare;
 import uw.auth.service.annotation.ResponseAdviceIgnore;
 import uw.auth.service.constant.UserType;
-import uw.common.dto.ResponseData;
+import uw.common.response.ResponseData;
 import uw.notify.center.service.WebNotifyService;
 import uw.notify.client.vo.WebNotifyMsg;
 
@@ -17,7 +17,6 @@ import uw.notify.client.vo.WebNotifyMsg;
  */
 @RestController
 @RequestMapping("/rpc/notify")
-@ResponseAdviceIgnore
 public class NotifyRpcController {
 
     /**
