@@ -11,6 +11,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+/**
+ * OpenAPI / Swagger 文档配置，仅在 {@code debug}/{@code dev} profile 下生效。
+ * <p>
+ * 附加 Bearer Token 鉴权方案，并按 controller 包路径划分分组，便于在 Swagger UI 中分模块浏览。
+ *
+ * @author axeon
+ */
 @Configuration
 @Profile({"debug","dev"})
 public class SwaggerConfig {
@@ -27,6 +34,11 @@ public class SwaggerConfig {
     @Value("${project.version}")
     private String appVersion;
 
+    /**
+     * 配置全局 OpenAPI 文档：附加 Bearer Token 鉴权方案、应用标题与联系方式。
+     *
+     * @return 用于增强所有分组的 OpenApiCustomizer
+     */
     @Bean
     public OpenApiCustomizer customOpenAPI() {
         return openApi -> openApi
@@ -37,9 +49,10 @@ public class SwaggerConfig {
     }
 
     /**
-     * user API接口。
+     * user API 接口分组，扫描 {@code uw.notify.center.controller.user} 包。
      *
-     * @return
+     * @param customOpenAPI 全局 OpenApiCustomizer
+     * @return userApi 分组配置
      */
     @Bean
     public GroupedOpenApi userApi(OpenApiCustomizer customOpenAPI) {

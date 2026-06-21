@@ -10,13 +10,26 @@ import uw.notify.client.vo.WebNotifyMsg;
 
 
 /**
- * Redis通知的监听器。
- * 一般用于多个实例之间传递消息。
+ * Redis Pub/Sub 通知监听器。
+ * <p>
+ * 订阅 {@link Constants#REDIS_NOTIFY_CHANNEL} 通道，接收来自其他实例广播的 {@link WebNotifyMsg}，
+ * 反序列化后以 {@code autoRelay=false} 调用 {@link WebNotifyService#pushMsg} 完成本地投递。
+ * <p>
+ * 关闭 autoRelay 是为了避免订阅回调再次触发 Redis 广播，形成循环放大。
+ * 反序列化失败仅记录错误日志，不向上抛出，单条脏消息不影响后续消费。
+ *
+ * @author axeon
  */
 public class RedisNotifyListener implements MessageListener {
 
     private final Logger logger = LoggerFactory.getLogger( RedisNotifyListener.class );
 
+    /**
+     * 处理收到的 Redis 订阅消息。
+     *
+     * @param message 消息体（{@link WebNotifyMsg} 的 JSON 字节流）
+     * @param pattern 订阅的通道模式（未使用）
+     */
     @Override
     public void onMessage(Message message, byte[] pattern) {
         try {
