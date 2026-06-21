@@ -29,7 +29,7 @@ public class NotifyTestController {
     @PostMapping("/send")
     @Operation(summary = "自发自收", description = "自发自收")
     @MscPermDeclare(auth = AuthType.NONE)
-    public ResponseData send(@Valid @RequestBody WebNotifyMsg webNotifyMsg) {
+    public ResponseData<Void> send(@Valid @RequestBody WebNotifyMsg webNotifyMsg) {
         webNotifyMsg.setUserId( AuthServiceHelper.getUserId() );
         webNotifyMsg.setSaasId( AuthServiceHelper.getSaasId() );
         return NotifyClientHelper.pushNotify( webNotifyMsg );
